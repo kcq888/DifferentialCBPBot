@@ -9,11 +9,9 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
-import frc.robot.commands.DiffDriveCommand;
 import frc.robot.subsystems.DiffDriveSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj.Joystick;
 import frc.robot.commands.AutoCommand;
 
@@ -38,12 +36,12 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure the button bindings
     configureButtonBindings();
-
-    final double xSpeed = -driverOI.getY(GenericHID.Hand.kLeft) * DiffDriveSubsystem.kMaxSpeed;
-    final double rotation = -driverOI.getX(GenericHID.Hand.kRight) * DiffDriveSubsystem.kMaxAngularSpeed;
     
     diffDriveSubsystem.setDefaultCommand(
-      new RunCommand(()-> diffDriveSubsystem.drive(xSpeed, rotation)));
+      new RunCommand(()-> diffDriveSubsystem.drive(
+        -driverOI.getY(GenericHID.Hand.kLeft) * DiffDriveSubsystem.kMaxSpeed, 
+        -driverOI.getX(GenericHID.Hand.kRight) * DiffDriveSubsystem.kMaxAngularSpeed
+        )));
   }
 
   /**
